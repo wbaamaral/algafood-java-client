@@ -1,15 +1,27 @@
 package br.com.wbaamaral.algafood.client.api;
 
+import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
-import br.com.wbaamaral.algafood.client.model.RestauranteModel;
+import org.springframework.web.client.RestTemplate;
+
+import br.com.wbaamaral.algafood.client.model.RestauranteResumoModel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class RestauranteClient {
 
-   public List<RestauranteModel> listar(){
+   private static final String RESOURCE_PATH = "/restaurantes";
+   private String url;
+   private RestTemplate restTemplate; 
+   
+   public List<RestauranteResumoModel> listar() {
 
-      return null;
+      URI resourceUri = URI.create( url + RESOURCE_PATH );
+      
+      RestauranteResumoModel[] restaurantes = restTemplate.getForObject(resourceUri, RestauranteResumoModel[].class);
+      
+      return  Arrays.asList(restaurantes);
    }
 }
