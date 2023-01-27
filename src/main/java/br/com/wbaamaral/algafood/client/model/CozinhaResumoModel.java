@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CozinhaResumoModel {
-   
-   private Long id;
-   private String nome;
+
+	private Long id;
+	private String nome;
 }
