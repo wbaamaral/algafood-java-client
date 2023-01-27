@@ -14,30 +14,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClientApiException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	@Getter
-	private Problem problem;
+   @Getter
+   private Problem problem;
 
-	public ClientApiException(String message, RestClientResponseException cause) {
+   public ClientApiException(String message, RestClientResponseException cause) {
 
-		super(message, cause);
-		deserializeProblem(cause);
-	}
+      super(message, cause);
 
-	private void deserializeProblem(RestClientResponseException cause) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.registerModule(new JavaTimeModule());
-		mapper.findAndRegisterModules();
+      deserializeProblem(cause);
+   }
 
-		try {
-			this.problem = mapper.readValue(cause.getResponseBodyAsString(), Problem.class);
+   private void deserializeProblem(RestClientResponseException cause) {
 
-		} catch (JsonProcessingException e) {
+      ObjectMapper mapper = new ObjectMapper();
+      mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+      mapper.registerModule(new JavaTimeModule());
+      mapper.findAndRegisterModules();
 
-			log.warn("Não foi possível desserializar a resposta em um problema", e);
-		}
-	}
+      try {
+         this.problem = mapper.readValue(cause.getResponseBodyAsString(), Problem.class);
+      } catch (JsonProcessingException e) {
+         log.warn("Não foi possível desserializar a resposta em um problema", e);
+      }
+   }
 
 }
