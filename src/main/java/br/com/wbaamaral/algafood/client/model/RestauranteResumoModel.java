@@ -5,13 +5,11 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class RestauranteModel {
+public class RestauranteResumoModel {
+
    private Long id;
    private String nome;
-   private BigDecimal taxaFrete;
-   private Boolean ativo;
-   private Boolean aberto;
-
    private CozinhaResumoModel cozinha;
-   private EnderecoModel endereco;
+   private BigDecimal taxaFrete;
+   
 }
